@@ -1,29 +1,19 @@
 #include <stdio.h>
-#include <math.h>
 
 int main() {
+    int lower, upper;
+    scanf("%d", &lower);
+	scanf("%d", &upper);
 
-	int lower_bound = 10;
-	int upper_bound = 30;
-	int a, b, c = 0;
-	int m = 2;
+    for (int a = lower; a <= upper; a++) {
+        for (int b = a+1; b <= upper; b++) {
+            for (int c = b+1; c <= upper; c++) {
+                if (a*a + b*b == c*c) {
+                    printf("%d  %d  %d\n", a, b, c);
+                }
+            }
+        }
+    }
 
-	while (c <= upper_bound) {
-		for (int n = 1; n < m; n++) {
-			a = m*m - n*n;
-			b = 2*m*n;
-			c = m*m + n*n;
-
-			if (c > upper_bound) {
-				break;
-			}
-
-			if (a >= lower_bound && b >= lower_bound) {
-				printf("%d %d %d\n", a, b, c);
-			}
-		}
-		m++;
-	}
-
-	return 0;
+    return 0;
 }
