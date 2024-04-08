@@ -5,31 +5,27 @@
 
 using namespace std;
 
-int main () {
-	int n;
-	cin >> n;
+int main() {
+    int octal;
+    int octal_digits[LIMIT];
 
-	if(n == 0) {
-		cout << "0";
-		return 0;
-	}
-	
-	int tab[LIMIT*sizeof(n)];
-	int i = 0;
+    cin >> octal;
+
+    int i = 0;
 	int length = 0;
-	while(n != 0) {
-		tab[i] = n%10;
-		n /= 10;
+    while (octal != 0) {
+        octal_digits[i] = octal % 10;
+        octal /= 10;
 		length++;
-		i++;
-	}
+        i++;
+    }
 
-	int decimal = 0;
-	for (int i=0; i < length; i++) {
-		decimal += tab[i] * pow(8,i);
-	}
+    int decimal = 0;
+    for (int i = 0; i < length; i++) {
+        decimal += octal_digits[i] * pow(8, i);
+    }
 
-	cout << decimal;
+    cout << decimal;
 
-	return 0;
+    return 0;
 }
