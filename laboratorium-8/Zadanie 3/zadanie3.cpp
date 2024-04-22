@@ -6,17 +6,13 @@ using namespace std;
 
 const char chars[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m',
                       'n','o','p','q','r','s','t','u','v','w','x','y','z',
-                      '1','2','3','4','5','6','7','8','9','0','.','?',',',
-                      '+','-','=',';',':'};
+                      '1','2','3','4','5','6','7','8','9','0','.',',','?',
+                      '+','-','=',';',':', ' '};
 
-const string morse[] = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.",
-                              "....", "..", ".---", "-.-", ".-..", "--", "-.",
-                              "---", ".--.", "--.-", ".-.", "...", "-", "..-",
-                              "...-", ".--", "-..-", "-.--", "--..", ".----",
-                              "..---", "...--", "....-", ".....", "-....",
-                              "--...", "---..", "----.", "-----", ".-.-.-",
-                              "..--..", "--..--", ".-.-.", "-....-", "-...-",
-                              "-.-.-.", "---...", "---..", " "};
+const string morse[] = {".-",     "-...", "-.-.", "-..",   ".",     "..-.",  "--.",   "....", "..",    ".---",  "-.-",   ".-..",
+                        "--",     "-.",   "---",  ".--.",  "--.-",  ".-.",   "...",   "-",    "..-",   "...-",  ".--",   "-..-",
+                        "-.--",   "--..", ".----","..---", "...--", "....-", ".....", "-....","--...", "---..", "----.", "-----", ".-.-.-", "..--..", "--..--", ".-.-.", "-....-", "-...-",
+                        "-.-.-.", "---...", " "};
 
 string encode(char c) {
     for (int i = 0; i < sizeof(chars); i++) {
@@ -33,12 +29,12 @@ char decode(const string& code) {
             return chars[i];
         }
     }
-    return '?';
+    return ' ';
 }
 
 int main() {
-    fstream inputFile, outputFile;
     char choice;
+    fstream inputFile, outputFile;
     string inputFileName, outputFileName;
 	string mode;
 
@@ -56,19 +52,18 @@ int main() {
         return 1;
     }
 
-    // cout << "Enter input file name: ";
-    // cin >> inputFileName;
-    // cout << "Enter output file name: ";
-    // cin >> outputFileName;
+    cout << "Enter input file name: ";
+    cin >> inputFileName;
+    cout << "Enter output file name: ";
+    cin >> outputFileName;
 
-    inputFile.open("input.txt", ios::in);
-    cout << "Hello";
-    if (!inputFile.is_open()) {
+    inputFile.open(inputFileName, ios::in);
+    if (!inputFile.good()) {
         cout << "Error opening input file" << endl;
         return 1;
     }
 
-    outputFile.open("output.txt", ios::in);
+    outputFile.open(outputFileName, ios::out);
     if (!outputFile.good()) {
         cout << "Error opening output file." << endl;
         return 1;
@@ -80,7 +75,7 @@ int main() {
         if (mode == "code") {
             for (char c : line) {
                 if (isalnum(c) || c == '.' || c == '?' || c == ',' ||
-                    c   == '+' || c == '-' || c == '=' || c == ';' || c == ':') {
+                      c == '+' || c == '-' || c == '=' || c == ';' || c == ':') {
                     result += encode(tolower(c)) + " ";
                 }
 				else if (c == ' ') {
@@ -88,7 +83,7 @@ int main() {
                 }
             }
         }
-		else {
+		else if (mode == "decode") {
             string code;
             for (char c : line) {
                 if (c != ' ') {
