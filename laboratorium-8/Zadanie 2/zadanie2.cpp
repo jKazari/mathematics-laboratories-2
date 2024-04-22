@@ -8,39 +8,13 @@ using namespace std;
 
 void readMatrixFromFile(const string& filename, int matrix[SIZE][SIZE]) {
     fstream file;
-	file.open(filename, ios::in);
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < SIZE; j++) {
-			file >> matrix[i][j];
-		}
-	}
-	file.close();
-}
-
-void transposeMatrix(int matrix[SIZE][SIZE]) {
-    int matrix_t[SIZE][SIZE];
+    file.open(filename, ios::in);
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            matrix_t[i][j] = matrix[j][i];
+            file >> matrix[i][j];
         }
     }
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            matrix[i][j] = matrix_t[i][j];
-        }
-    }
-}
-
-void writeMatrixToFile(const string& filename, int matrix[SIZE][SIZE], int number_size) {
-	fstream file;
-	file.open(filename, ios::out);
-	for (int i = 0; i < SIZE; i++) {
-		for (int j = 0; j < SIZE; j++) {
-			file << setw(number_size) << left << matrix[i][j] << " ";
-		}
-		file << endl;
-	}
-	file.close();
+    file.close();
 }
 
 int main() {
@@ -50,15 +24,20 @@ int main() {
 	int matrix_b[SIZE][SIZE];
 	int matrix_c[SIZE][SIZE];
 
-	readMatrixFromFile("AA.txt", matrix_a);
-    readMatrixFromFile("BB.txt", matrix_b);
-    readMatrixFromFile("CC.txt", matrix_c);
+	readMatrixFromFile("matrix_a.txt", matrix_a);
+    readMatrixFromFile("matrix_b.txt", matrix_b);
+    readMatrixFromFile("matrix_c.txt", matrix_c);
 
-	transposeMatrix(matrix_b);
+	file.open("matrix_d.txt", ios::out);
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE; j++) {
+			file << matrix_b[j][i] << " ";
+		}
+		file << endl;
+	}
+	file.close();
 
-	writeMatrixToFile("D.txt", matrix_b, 1);
-
-	file.open("E.txt", ios::out);
+	file.open("matrix_e.txt", ios::out);
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < SIZE; j++) {
 			int b_times_a = 0;
