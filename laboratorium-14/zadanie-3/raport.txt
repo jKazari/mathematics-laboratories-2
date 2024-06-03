@@ -1,0 +1,37 @@
+Raport Sprzedazy
+================
+Laczna liczba transakcji: 78
+Laczna sprzedaz: 415.30 zl
+Srednia wartosc transakcji: 5.32 zl
+Najwyzsza sprzedaz: 15.99 zl
+Najnizsza sprzedaz: 0.99 zl
+Liczba transakcji dla kazdego produktu:
+  Jogurt: 3
+  Ser: 4
+  Piwo: 3
+  Ryz: 3
+  Woda: 3
+  Czekolada: 3
+  Mleko: 5
+  Majonez: 3
+  Ketchup: 2
+  Szynka: 4
+  Mydlo: 2
+  Szampon: 3
+  Pasta_do_zebow: 1
+  Maka: 2
+  Cukier: 4
+  Herbata: 2
+  Makaron: 3
+  Maslo_orzechowe: 4
+  Wino: 4
+  Dzem: 2
+  Maslo: 4
+  Papier_toaletowy: 3
+  Ciastka: 2
+  Sok: 1
+  Majones: 1
+  Plyn_do_mycia_naczyn: 1
+  Jajka: 2
+  Oliwa: 1
+  Srodek_czyszczacy: 3
