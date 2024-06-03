@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+int sumujWartosci(int *wartosci, int n)
+{
+    int suma; // 'int suma = 0;'
+	for (int i = 0; i <= n; i++) // 'for (int i = 0; i < n; i++)'
+    {
+        suma += wartosci[i];
+    }
+    return suma;
+}
+
+int main()
+{
+    int rozmiar;
+    cout << "Podaj rozmiar: ";
+    cin >> rozmiar;
+    int *wartosci = new int[rozmiar];
+    int i; // 'int i = 0;'
+    while (i < rozmiar)
+    {
+        cout << "Podaj wartosc do dodania: ";
+        cin >> wartosci[++i]; // 'cin >> wartosci[i++];'
+    }
+    cout << "Laczna suma wynosi: " << sumujWartosci(wartosci, rozmiar) << endl;
+
+    // 'delete [] wartosci;'
+}
+
+// Linijka 6
+Nie zainicjowaliśmy zmiennej 'suma'. Powinniśmy zainicjalizować ją na '0'
+
+// Linijka 7
+Nasza pętla wykonywała się n+1 razy, a powinna wykonywać się n razy
+
+// Linijka 20
+Nie zainicjowaliśmy zmiennej 'i'. Powinniśmy ją zainicjalizować na '0'
+
+// Linijka 24
+Była preinkrementacja, powinna być postinkrementacja
+
+// Linijka 28
+Nie było dealokacji pamięci. Powinniśmy usunąć tablicę 'wartosci'

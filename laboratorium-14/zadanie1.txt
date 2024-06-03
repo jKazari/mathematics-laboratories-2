@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+int wykladnik (int podstawa, int wyk1) {
+	int wartosc_narast; // 'wartosc_narast = 1;'
+	for (int i = 0; i < wyk1; i++) {
+		wartosc_narast *= podstawa;
+	}
+	return podstawa; // 'return wartosc_narast'
+}
+
+int main() {
+	int podstawa;
+	int wyk1;
+
+	cout << "Podaj podstawe: ";
+	cin >> podstawa;
+	cout << "Podaj wykladnik: ";
+	cin >> wyk1;
+	cout << wykladnik(wyk1, podstawa); // 'cout << wykladnik(podstawa, wyk1);'
+}
+
+// Linijka 6
+Nie zainicjowaliśmy zmiennej 'wartosc_narast', przez co domyślnie miała wartość '0' (lub wartość śmieciową). Nieważne ile razy i przez co byłaby przemnożona, to ostatecznie byłaby równa '0'. Powinniśmy ją zainicjalizować na '1'
+
+// Linijka 10
+Zwracaliśmy zmienną 'podstawa' która nijak nie była modyfikowana od wejścia. Powinniśmy zwracać zmienną 'wartosc_narast' bo to ona jest poprawną wartością
+
+// Linijka 21
+Błędnie w miejsce zmiennej 'podstawa' podajemy zmienną 'wyk1' i vice versa. Powinniśmy zamienić je miejscami
