@@ -6,92 +6,92 @@
 
 using namespace std;
 
-struct Transaction {
-    string product;
-    double value;
+struct Transakcja {
+    string produkt;
+    double wartosc;
 };
 
-bool loadTransactions(const string& filename, vector<Transaction>& transactions) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Error opening file: " << filename << endl;
+bool wczytajTransakcje(const string& nazwaPliku, vector<Transakcja>& transakcje) {
+    ifstream plik(nazwaPliku);
+    if (!plik.is_open()) {
+        cerr << "Blad otwierania pliku: " << nazwaPliku << endl;
         return false;
     }
 
-    string product;
-    double value;
-    while (file >> product >> value) {
-        if (file.fail()) {
-            cerr << "Error reading line" << endl;
+    string produkt;
+    double wartosc;
+    while (plik >> produkt >> wartosc) {
+        if (plik.fail()) {
+            cerr << "Blad odczytu wiersza" << endl;
             return false;
         }
-        transactions.push_back({product, value});
+        transakcje.push_back({produkt, wartosc});
     }
-    file.close();
+    plik.close();
     return true;
 }
 
-void generateReport(const vector<Transaction>& transactions, const string& reportFilename) {
-    int totalTransactions = transactions.size();
-    double totalSales = 0;
-    double highestSale = transactions.size() > 0 ? transactions[0].value : 0;
-    double lowestSale = transactions.size() > 0 ? transactions[0].value : 0;
-    vector<string> products;
-    vector<int> counts;
+void generujRaport(const vector<Transakcja>& transakcje, const string& nazwaPlikuRaportu) {
+    int liczbaTransakcji = transakcje.size();
+    double calkowitaSprzedaz = 0;
+    double najwyzszaSprzedaz = transakcje.size() > 0 ? transakcje[0].wartosc : 0;
+    double najnizszaSprzedaz = transakcje.size() > 0 ? transakcje[0].wartosc : 0;
+    vector<string> produkty;
+    vector<int> liczby;
 
-    for (const auto& t : transactions) {
-        totalSales += t.value;
-        if (t.value > highestSale) highestSale = t.value;
-        if (t.value < lowestSale) lowestSale = t.value;
+    for (const auto& t : transakcje) {
+        calkowitaSprzedaz += t.wartosc;
+        if (t.wartosc > najwyzszaSprzedaz) najwyzszaSprzedaz = t.wartosc;
+        if (t.wartosc < najnizszaSprzedaz) najnizszaSprzedaz = t.wartosc;
 
-        bool found = false;
-        for (size_t i = 0; i < products.size(); ++i) {
-            if (products[i] == t.product) {
-                counts[i]++;
-                found = true;
+        bool znaleziono = false;
+        for (size_t i = 0; i < produkty.size(); ++i) {
+            if (produkty[i] == t.produkt) {
+                liczby[i]++;
+                znaleziono = true;
                 break;
             }
         }
-        if (!found) {
-            products.push_back(t.product);
-            counts.push_back(1);
+        if (!znaleziono) {
+            produkty.push_back(t.produkt);
+            liczby.push_back(1);
         }
     }
 
-    double averageSale = totalTransactions > 0 ? totalSales / totalTransactions : 0;
+    double sredniaSprzedaz = liczbaTransakcji > 0 ? calkowitaSprzedaz / liczbaTransakcji : 0;
 
-    ofstream reportFile(reportFilename);
-    if (!reportFile.is_open()) {
-        cerr << "Error opening report file: " << reportFilename << endl;
+    ofstream plikRaportu(nazwaPlikuRaportu);
+    if (!plikRaportu.is_open()) {
+        cerr << "Blad otwierania pliku raportu: " << nazwaPlikuRaportu << endl;
         return;
     }
 
-    reportFile << "Sales Report\n";
-    reportFile << "============\n";
-    reportFile << "Total Transactions: " << totalTransactions << "\n";
-    reportFile << "Total Sales: $" << fixed << setprecision(2) << totalSales << "\n";
-    reportFile << "Average Sale: $" << fixed << setprecision(2) << averageSale << "\n";
-    reportFile << "Highest Sale: $" << fixed << setprecision(2) << highestSale << "\n";
-    reportFile << "Lowest Sale: $" << fixed << setprecision(2) << lowestSale << "\n";
-    reportFile << "Sales per Product:\n";
-    for (size_t i = 0; i < products.size(); ++i) {
-        reportFile << "  " << products[i] << ": " << counts[i] << "\n";
+    plikRaportu << "Raport Sprzedazy\n";
+    plikRaportu << "================\n";
+    plikRaportu << "Laczna liczba transakcji: " << liczbaTransakcji << "\n";
+    plikRaportu << "Laczna sprzedaz: " << fixed << setprecision(2) << calkowitaSprzedaz << " zl\n";
+    plikRaportu << "Srednia wartosc transakcji: " << fixed << setprecision(2) << sredniaSprzedaz << " zl\n";
+    plikRaportu << "Najwyzsza sprzedaz: " << fixed << setprecision(2) << najwyzszaSprzedaz << " zl\n";
+    plikRaportu << "Najnizsza sprzedaz: " << fixed << setprecision(2) << najnizszaSprzedaz << " zl\n";
+    plikRaportu << "Liczba transakcji dla kazdego produktu:\n";
+    for (size_t i = 0; i < produkty.size(); ++i) {
+        plikRaportu << "  " << produkty[i] << ": " << liczby[i] << "\n";
     }
-    reportFile.close();
+    plikRaportu.close();
 }
 
 int main() {
-    string inputFilename = "sales.txt";
-    string reportFilename = "report.txt";
-    vector<Transaction> transactions;
+    string nazwaPlikuWejsciowego = "sprzedaz.txt";
+    string nazwaPlikuRaportu = "raport.txt";
+    vector<Transakcja> transakcje;
 
-    if (!loadTransactions(inputFilename, transactions)) {
-        cerr << "Failed to load transactions." << endl;
+    if (!wczytajTransakcje(nazwaPlikuWejsciowego, transakcje)) {
+        cerr << "Nie udalo sie wczytac transakcji." << endl;
         return 1;
     }
 
-    generateReport(transactions, reportFilename);
-    cout << "Report generated successfully: " << reportFilename << endl;
+    generujRaport(transakcje, nazwaPlikuRaportu);
+    cout << "Raport wygenerowany pomyslnie: " << nazwaPlikuRaportu << endl;
 
     return 0;
 }

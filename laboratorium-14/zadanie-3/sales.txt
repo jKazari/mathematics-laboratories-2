@@ -1,4 +1,0 @@
-Produkt1 23.45
-Produkt2 19.99
-Produkt1 5.99
-Produkt3 99.99
