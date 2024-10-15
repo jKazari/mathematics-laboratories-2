@@ -1,5 +1,5 @@
 # Programming class laboratories
-Repository of solutions to my programming (C, C++) laboratories on the 2nd semester of studying Mathematics at Gdańsk University of Technology
+Repository of solutions to my **Programming** (`C`, `C++`) laboratories on the **2nd semester** of studying Mathematics at Gdańsk University of Technology
 
 ## The laboratory outline
 1. Introduction to Programming in C
